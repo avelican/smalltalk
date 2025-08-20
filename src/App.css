@@ -1,19 +1,27 @@
 #root {
-width: 90vw;
-margin: auto;
+  width: calc(100vw - 1em);
+  margin: auto;
+  margin-top:1em;
 }
 
 * { box-sizing: border-box; }
 body, html{ padding: 0; margin: 0; }
-body{ min-height: 100vh; }
+body{ 
+  min-height: 100vh; 
+  min-height: 100dvh;
+}
 textarea{
   display: inline-block;
 }
+
 body, input, textarea, select, button{
   font-family: sans-serif;
   background-color: #181818;
+  background-color: #111111;
+  
   color: #eee;
   /* font-size: 20pt; */
+  font-size: 12pt;
 }
 input, textarea, select, button{
   border-radius: 0.3em;
@@ -21,6 +29,18 @@ input, textarea, select, button{
 }
 input, hr, textarea, button {
   border: 1px solid #999;
+}
+select, button{
+  margin-right:0.25em;
+}
+#top_thing{ padding: 0.5em; padding-top:0; }
+#reasoning_select { margin-right: 0.5em; }
+#system_btn { margin-left: 0.5em; }
+#model_select{
+  width:8em;
+}
+#reasoning_select{
+  width:4em;
 }
 #bottom_slab{
   position: fixed;
@@ -38,31 +58,39 @@ input, hr, textarea, button {
 #output_log {
   white-space: pre-wrap;
   font-family: 'Helvetica', 'sans-serif';
-  padding: 1em;
+  padding: 2em;
 /*  max-width: 50em;
   margin: 2em auto 1em auto;*/
   line-height: 1.4;
   background-color:#111;
+  background-color: #181818;
   border-radius:1em;
   width: 96%;
   height: 40vh;
-  height: calc(100vh - 12em);
+  /* height: calc(100vh - 12em); */
+  /* height: calc(100vh - 24em); */
+  height: calc(100dvh - 10em);
+  max-width: 50em;
   resize: vertical;
   overflow-y: auto;
   box-sizing: border-box;
   margin:auto;
 }
-#spacer{ height: 220px; }
-#user_msg, #submitBtn{ height: 5em; }
+#spacer{ height: 7em; }
+#user_msg, #submitBtn{ 
+  height: 5em; 
+}
 #submitBtn{
   display: inline-block;
   width: 10em;
+  width: 5em;
+  font-weight:bold;
+  color:#ddd;
 }
 #user_msg {
   width: calc(100% - 12em);
+  width: calc(100% - 6em);
+  
   margin-right: 1em;
 }
 .flexy{ display: flex; }
-#top_thing{ padding: 1em; }
-#reasoning_select { margin-right: 0.5em; }
-#system_btn { margin-left: 0.5em; }

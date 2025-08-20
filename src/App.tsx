@@ -156,7 +156,7 @@ export default function App() {
 
     try {
       if (!apiKey()) {
-        print("Error: Missing API key. Click 'API Key' to set it.");
+        print("Error: Missing API key. Click 'Key' to set it.");
         messageDivider();
         return;
       }
@@ -290,8 +290,8 @@ export default function App() {
           <option value="high">high</option>
         </select>
 
-        <button id="system_btn" onClick={handleSetSystem}>System</button>
-        <button id="api_key_btn" onClick={handleSetApiKey}>API Key</button>
+        <button id="system_btn" onClick={handleSetSystem}>Sys</button>
+        <button id="api_key_btn" onClick={handleSetApiKey}>Key</button>
       </div>
 
       <div 
@@ -301,7 +301,7 @@ export default function App() {
         {USE_TEXT_NODE ? null : outputText()}
       </div>
 
-      <div id="spacer"></div>
+      {/* <div id="spacer"></div> */}
 
       <div id="bottom_slab">
         <div id="bottom_slab_contents">
