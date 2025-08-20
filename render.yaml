@@ -1,0 +1,10 @@
+# Exported from Render on 2025-08-20T03:24:30Z
+services:
+- type: web
+  name: smalltalk
+  runtime: static
+  repo: https://github.com/avelican/smalltalk
+  buildCommand: npm install; npm run build
+  staticPublishPath: dist
+  autoDeployTrigger: commit
+version: "1"
