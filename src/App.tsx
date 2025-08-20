@@ -1,4 +1,4 @@
-import { createSignal, onMount } from 'solid-js'
+import { createSignal, createEffect, onMount } from 'solid-js'
 import './App.css'
 
 type ChatRole = 'system' | 'user' | 'assistant';
@@ -14,6 +14,7 @@ export default function App() {
   const LS_DEFAULT_EFFORT = 'low';
   const LS_SYSTEM = "IA_SYS_MSG";
   const LS_API_KEY = "IA_API_KEY";
+  const LS_MESSAGES = "IA_MESSAGES";
 
   // Flag to enable/disable manual textNode rendering
   const USE_TEXT_NODE = false;
@@ -24,6 +25,15 @@ export default function App() {
   }
   function lsSet(k: string, v: string): void {
     window.localStorage.setItem(k, v);
+  }
+  function lsGetJSON<T>(k: string, fallback: T): T {
+    const raw = window.localStorage.getItem(k);
+    if (!raw) return fallback;
+    try {
+      return JSON.parse(raw) as T;
+    } catch {
+      return fallback;
+    }
   }
 
   // State signals
@@ -48,9 +58,46 @@ export default function App() {
     if (USE_TEXT_NODE) {
       initTextNode();
     }
-    resetMessages();
+
+    // Load persisted messages if present, else start with system message (if any)
+    const storedMsgs = lsGetJSON<ChatMessage[]>(LS_MESSAGES, []);
+    if (storedMsgs.length > 0) {
+      setMessages(storedMsgs);
+      rebuildOutputFromMessages(storedMsgs);
+    } else {
+      resetMessages();
+      rebuildOutputFromMessages(messages());
+    }
+
     userMsgEl?.focus();
   });
+
+    // Persist messages to localStorage whenever they change
+  createEffect(() => {
+    try {
+      lsSet(LS_MESSAGES, JSON.stringify(messages()));
+    } catch {}
+  });
+
+    function clearOutput() {
+    if (USE_TEXT_NODE && outputTextNode) {
+      outputTextNode.nodeValue = '';
+    } else {
+      setOutputText('');
+    }
+  }
+
+  function rebuildOutputFromMessages(msgs: ChatMessage[]) {
+    clearOutput();
+    for (const m of msgs) {
+      if (m.role === 'user') {
+        printMessage('User', m.content);
+      } else if (m.role === 'assistant') {
+        printMessage('Assistant', m.content);
+      }
+      // Note: system messages are not printed to the log by design
+    }
+  }
 
   function initTextNode() {
     if (outputEl) {
@@ -102,6 +149,7 @@ export default function App() {
     lsSet(LS_SYSTEM, newSystem);
     if (!chatStarted()) {
       resetMessages();
+      rebuildOutputFromMessages(messages());
     }
   }
   function handleSetApiKey() {
@@ -111,6 +159,16 @@ export default function App() {
       setApiKey(trimmed);
       lsSet(LS_API_KEY, trimmed);
     }
+  }
+
+  function handleNewChat() {
+    const sys = system();
+    const newMsgs: ChatMessage[] = sys ? [{ role: 'system', content: sys }] : [];
+    setMessages(newMsgs);
+    lsSet(LS_MESSAGES, JSON.stringify(newMsgs));
+    clearOutput();
+    // Optional: focus back to input
+    userMsgEl?.focus();
   }
 
   // I/O Helpers // TODO: clean up?
@@ -292,6 +350,8 @@ export default function App() {
 
         <button id="system_btn" onClick={handleSetSystem}>Sys</button>
         <button id="api_key_btn" onClick={handleSetApiKey}>Key</button>
+        <button id="new_chat_btn" onClick={handleNewChat}>New</button>
+
       </div>
 
       <div 
