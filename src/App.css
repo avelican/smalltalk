@@ -33,7 +33,10 @@ input, hr, textarea, button {
 select, button{
   margin-right:0.25em;
 }
-#top_thing{ padding: 0.5em; padding-top:0; }
+#top_thing{ 
+  padding: 0.5em; padding-top:0; 
+  max-width: 50em; margin:auto;
+}
 #reasoning_select { margin-right: 0.5em; }
 #system_btn { margin-left: 0.5em; }
 #model_select{
