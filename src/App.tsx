@@ -288,7 +288,6 @@ export default function App() {
           <option value="low">low</option>
           <option value="medium">medium</option>
           <option value="high">high</option>
-          <option value="spongebob">spongebob</option>
         </select>
 
         <button id="system_btn" onClick={handleSetSystem}>System</button>
