@@ -178,10 +178,17 @@ export default function App() {
     messageDivider();
   }
   function messageHeader(src: string) {
-    printRaw(`\n=== ${src} ===\n`);
+    // printRaw(`\n== ${src} ==\n\n`);
+    // printRaw(`\n[ ${src} ]\n\n`);
+    printRaw(`\n${src}\n\n`);
+    
   }
   function messageDivider() {
-    printRaw('\n----------------------------------------\n');
+    // printRaw('\n───────────────────────────────\n');
+    // printRaw('\n─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─\n');
+    printRaw('\n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n')
+    
+    // printRaw('\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n');
   }
   function print(txt: string) {
     appendToOutput(txt + "\n");
@@ -215,7 +222,7 @@ export default function App() {
     try {
       if (!apiKey()) {
         print("Error: Missing API key. Click 'Key' to set it.");
-        messageDivider();
+        // messageDivider();
         return;
       }
 
@@ -238,7 +245,7 @@ export default function App() {
       if (!response.ok || !response.body) {
         const errText = await response.text().catch(() => "");
         print(`Error: ${response.status} ${response.statusText}\n${errText}`);
-        messageDivider();
+        // messageDivider();
         return;
       }
 
@@ -286,7 +293,8 @@ export default function App() {
     } catch (err) {
       print(`Error: ${String(err)}`);
     } finally {
-      messageDivider();
+      print('');
+      // messageDivider();
     }
   }
 
