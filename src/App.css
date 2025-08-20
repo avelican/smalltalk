@@ -1,0 +1,68 @@
+#root {
+width: 90vw;
+margin: auto;
+}
+
+* { box-sizing: border-box; }
+body, html{ padding: 0; margin: 0; }
+body{ min-height: 100vh; }
+textarea{
+  display: inline-block;
+}
+body, input, textarea, select, button{
+  font-family: sans-serif;
+  background-color: #181818;
+  color: #eee;
+  font-size: 20pt;
+}
+input, textarea, select, button{
+  border-radius: 0.3em;
+  padding: 0.3em;
+}
+input, hr, textarea, button {
+  border: 1px solid #999;
+}
+#bottom_slab{
+  position: fixed;
+  bottom: 0;
+  left:0;
+  width: 100%;
+}
+#bottom_slab_contents {
+  padding: 1em;
+  background-color: #111;
+  max-width: 50em;
+  margin: auto;
+  width: 100%;
+}
+#output_log {
+  white-space: pre-wrap;
+  font-family: 'Helvetica', 'sans-serif';
+  padding: 1em;
+/*  max-width: 50em;
+  margin: 2em auto 1em auto;*/
+  line-height: 1.4;
+  background-color:#111;
+  border-radius:1em;
+  width: 96%;
+  height: 40vh;
+  height: calc(100vh - 12em);
+  resize: vertical;
+  overflow-y: auto;
+  box-sizing: border-box;
+  margin:auto;
+}
+#spacer{ height: 220px; }
+#user_msg, #submitBtn{ height: 5em; }
+#submitBtn{
+  display: inline-block;
+  width: 10em;
+}
+#user_msg {
+  width: calc(100% - 12em);
+  margin-right: 1em;
+}
+.flexy{ display: flex; }
+#top_thing{ padding: 1em; }
+#reasoning_select { margin-right: 0.5em; }
+#system_btn { margin-left: 0.5em; }
